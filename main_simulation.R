@@ -2,6 +2,7 @@ library(TwoSampleMR)
 library(PMR)
 library(mixIE)
 library(MRcML)
+source('./mr_egger_func.R')
 
 two_runif <- function(m,min1,min2,max1,max2){
   y <- runif(m, 0, max1-min1+max2-min2)
@@ -142,10 +143,10 @@ generate_gwas_DP_2 <- function(seed,n,m,theta,K){
   return(list(byg=byg,bxg=bxg,betax=betax,sdx=sdx,betay=betay,sdy=sdy,heri=heri,gx=gx,are=are))
 }
 
-run_simulation_egger <- function(seed,n,m,theta,sd_alpha,K,type){
+run_simulation_egger <- function(seed,n,m,theta,K,type){
     generate_gwas = switch(type,'DP1'=generate_gwas_DP_1,'DP2'=generate_gwas_DP_2,
                            'BP1'=generate_gwas_BP_1,'BP2'=generate_gwas_BP_2)
-    s = generate_gwas(seed,n,m,theta,K,sd_alpha)
+    s = generate_gwas(seed,n,m,theta,K)
     b_exp=s$betax; se_exp = s$sdx; b_out = s$betay;se_out = s$sdy
     
     ivw = TwoSampleMR::mr_ivw(b_exp=s$betax,se_exp = s$sdx,b_out = s$betay,se_out = s$sdy)
