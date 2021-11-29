@@ -20,6 +20,8 @@ generate_gwas_DP_1 <- function(seed,n,m,theta,K){
   bug = rep(0,m)
   if(K>=1){
     byg[1:K] = rnorm(K,mean=0.1,sd=0.1)
+    ## relax assumption 2 for PMR-Egger
+    # byg[1:K] = rnorm(K,mean=0.01,sd=0)
   }
   eu = rnorm(n,0,1)
   ex = rnorm(n,0,1)
@@ -120,6 +122,8 @@ generate_gwas_DP_2 <- function(seed,n,m,theta,K){
   bug = rep(0,m)
   if(K>=1){
     byg[1:K] = rnorm(K,mean=0.1,sd=0.1)
+    ## relax assumption 2 for PMR-Egger
+    # byg[1:K] = rnorm(K,mean=0.01,sd=0)
   }
   eu = rnorm(n,0,1)
   ex = rnorm(n,0,1)
